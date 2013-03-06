@@ -2,15 +2,16 @@
 <<html>
 
 <head>
-  <title>Scrolling Exercise</title>
+	<title>Scrolling Exercise</title>
 	
 	<style>
 		body {font-family: Lato, sans-serif; -webkit-font-smoothing: antialiased;}
 		h1 {text-align: center; margin-bottom: 40px;}
 		#container {margin: 0 auto; overflow: scroll; width: 600px; height: 450px; border: solid 2px black;}
 		.box {width: 300px; height: 100px; background: #333; border: solid 2px black; margin: 20px auto; }
-		.outerBox {margin-left: -350px; display: none;}
-		
+		.outerBox {margin-top: 75px; display: none;}
+		.leftBox {margin-left: -350px;}
+		.rightBox {margin-right: -350px; background: #999; }
 		
 
 	</style>
@@ -23,7 +24,38 @@
 		<div class="box"></div>
 	</div>
 
+
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="scrolling.js"></script>
+    <script>
+		$(function(){
+			var i = 0;
+			var y = 0;
+			var mar;
+			$(window).on('scroll', function(){
+				i++;
+				if (i === 5){
+					i = 0;
+					y++;
+					if (y%2 === 1){
+						$('#container').append("<div class='box outerBox leftBox'></div>");
+
+						mar = $('.box').css("marginLeft");
+
+						$('.leftBox').animate({marginLeft: mar}, {duration: 1500, queue: false});
+						
+					} else {
+						$('#container').append("<div class='box outerBox rightBox'></div>");
+
+						mar = $('.box').css("marginRight");
+
+						$('.rightBox').animate({marginRight: mar}, {duration: 1500, queue: false});
+					}
+				$('.outerBox').fadeIn(1500);
+				}
+				
+				
+			});
+		});
+    </script>
 </body>
 </html>
